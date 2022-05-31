@@ -1,0 +1,32 @@
+{
+  "name": "react-todo",
+  "version": "1.0.0",
+  "description": "A simple todo app built with react and express",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GluterusMaximus/react-todo.git"
+  },
+  "keywords": [
+    "TODO",
+    "time",
+    "management",
+    "deadlines"
+  ],
+  "author": "Grigoriy Ustymenko",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/GluterusMaximus/react-todo/issues"
+  },
+  "homepage": "https://github.com/GluterusMaximus/react-todo#readme",
+  "devDependencies": {
+    "eslint": "^8.16.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-sonarjs": "^0.13.0",
+    "prettier": "^2.6.2"
+  }
+}
