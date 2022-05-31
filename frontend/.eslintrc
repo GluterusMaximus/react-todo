@@ -1,0 +1,24 @@
+{
+  "extends": [
+    "eslint:recommended",
+    "prettier",
+    "plugin:sonarjs/recommended",
+    "plugin:react/recommended"
+  ],
+  "plugins": ["sonarjs", "prettier", "react"],
+  "parserOptions": {
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "settings": {
+    "react": {
+      "version": "latest"
+    }
+  },
+  "env": {
+    "es2022": true,
+    "browser": true
+  }
+}
