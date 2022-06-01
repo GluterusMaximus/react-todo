@@ -16,3 +16,7 @@ node_modules/
 # dotenv environment variables file
 .env
 .env.test
+
+# VS code settings
+.vscode
+.vscode/
