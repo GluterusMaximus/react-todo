@@ -15,7 +15,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "lint:style": "stylelint \"**/*.+(css|scss)\" --ignore-path .gitignore",
+    "lint:style:fix": "stylelint \"**/*.+(css|scss)\" --fix --ignore-path .gitignore"
   },
   "eslintConfig": {
     "extends": [
