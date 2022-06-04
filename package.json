@@ -7,7 +7,9 @@
   "scripts": {
     "lint": "eslint --ignore-path .gitignore .",
     "format": "prettier --ignore-path .gitignore --write --plugin-search-dir=. .",
-    "start": "node backend/server",
+    "server": "node backend/server",
+    "client": "npm run start --prefix frontend",
+    "dev": "concurrently --kill-others \"npm run server\" \"npm run client\"",
     "prepare": "husky install"
   },
   "repository": {
@@ -27,6 +29,7 @@
   },
   "homepage": "https://github.com/GluterusMaximus/react-todo#readme",
   "devDependencies": {
+    "concurrently": "^7.2.1",
     "eslint": "^8.16.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prettier": "^4.0.0",
