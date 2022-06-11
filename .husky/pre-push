@@ -1,8 +1,8 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
-current_branch = $(git rev-parse --abbrev-ref HEAD)
-protected_branches = "master|main"
+current_branch=$(git rev-parse --abbrev-ref HEAD)
+protected_branches="master|main"
 
 if [[ $current_branch =~ $protected_branches ]]; then
   echo "You can't push to $current_branch branch"
