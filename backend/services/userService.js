@@ -1,7 +1,7 @@
 /* eslint-disable */
-import User from '../models/userModel'
+import User from '../models/userModel.js'
 import uuid from 'uuid'
-import mailService from './mailService'
+import mailService from './mailService.js'
 
 class UserService {
   async register(email, password) {
