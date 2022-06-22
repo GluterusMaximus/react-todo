@@ -1,8 +1,22 @@
+import userService from '../services/userService.js'
+
 /* eslint-disable */
 class UserController {
-  register(req, res, next) {
+  async register(req, res, next) {
     try {
-    } catch (error) {}
+      const { email, password } = req.body
+      console.log(req.body)
+      const userData = await userService.register(email, password)
+      console.log(userData)
+      res.cookie('refreshToken', userData.refreshToken, {
+        maxAge: 30 * 24 * 3600 * 1000,
+        secure: true,
+        httpOnly: true,
+      })
+      return res.json(userData)
+    } catch (error) {
+      console.log(error)
+    }
   }
   login(req, res, next) {
     try {
