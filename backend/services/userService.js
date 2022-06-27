@@ -4,13 +4,14 @@ import { v4 } from 'uuid'
 import mailService from './mailService.js'
 import tokenService from './tokenService.js'
 import UserDto from '../dtos/userDto.js'
+import ApiError from '../exceptions/apiError.js'
 
 class UserService {
   async register(email, password) {
     const userExists = await User.findOne({ email })
 
     if (userExists) {
-      throw new Error('User already exists')
+      throw ApiError.BadRequest('User already exists')
     }
     const activationLink = v4()
 
