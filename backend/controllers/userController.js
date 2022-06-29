@@ -13,26 +13,36 @@ class UserController {
       })
       return res.json(userData)
     } catch (error) {
-      console.log(error)
+      next(error)
     }
   }
-  login(req, res, next) {
+
+  async login(req, res, next) {
     try {
     } catch (error) {}
   }
-  logout(req, res, next) {
+
+  async logout(req, res, next) {
     try {
     } catch (error) {}
   }
-  activate(req, res, next) {
+
+  async activate(req, res, next) {
+    try {
+      const activationLink = req.params.link
+      await userService.activate(activationLink)
+      res.redirect(process.env.CLIENT_URL)
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  async refresh(req, res, next) {
     try {
     } catch (error) {}
   }
-  refresh(req, res, next) {
-    try {
-    } catch (error) {}
-  }
-  getUsers(req, res, next) {
+
+  async getUsers(req, res, next) {
     try {
       res.json(['123', '456'])
     } catch (error) {}

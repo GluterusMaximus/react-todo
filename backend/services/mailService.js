@@ -1,7 +1,5 @@
 /* eslint-disable */
 import nodemailer from 'nodemailer'
-import dotenv from 'dotenv'
-dotenv.config()
 
 class MailService {
   constructor() {
@@ -13,11 +11,6 @@ class MailService {
         user: String(process.env.SMTP_USER),
         pass: String(process.env.SMTP_PASSWORD),
       },
-    })
-
-    this.transporter.verify((err, success) => {
-      if (err) console.error(err)
-      console.log('Your config is correct')
     })
   }
 

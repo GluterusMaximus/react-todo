@@ -17,7 +17,7 @@ class UserService {
     const user = await User.create({ email, password, activationLink })
     await mailService.sendActivationMail(
       email,
-      `${process.env.API_URL}/api/activate/${activationLink}`
+      `${process.env.API_URL}/api/users/activate/${activationLink}`
     )
 
     const userDto = new UserDto(user)
@@ -25,6 +25,15 @@ class UserService {
     await tokenService.saveToken(userDto.id, tokens.refreshToken)
 
     return { ...tokens, user: userDto }
+  }
+
+  async activate(activationLink) {
+    const user = await User.findOne({ activationLink })
+    if (!user) {
+      throw ApiError.BadRequest('Invalid activaion link')
+    }
+    user.isActivated = true
+    await user.save()
   }
 }
 

@@ -1,5 +1,4 @@
-import dotenv from 'dotenv'
-dotenv.config()
+import {} from 'dotenv/config'
 import express from 'express'
 import connectDB from './config/connectDB.js'
 import userRouter from './routes/userRoutes.js'
