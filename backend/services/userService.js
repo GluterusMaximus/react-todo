@@ -35,6 +35,19 @@ class UserService {
     user.isActivated = true
     await user.save()
   }
+
+  async login(email, password) {
+    const user = await User.findOne({ email })
+    const isCorrectPass = User.matchPassword(password)
+    if (!user || !isCorrectPass) {
+      throw ApiError.BadRequest('Invalid email or password')
+    }
+
+    const userDto = new UserDto(user)
+    const tokens = tokenService.generateTokens({ ...userDto })
+    await tokenService.saveToken(userDto.id, tokens.refreshToken)
+    return { ...tokens, user: userDto }
+  }
 }
 
 export default new UserService()
