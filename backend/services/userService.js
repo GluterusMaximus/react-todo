@@ -38,7 +38,7 @@ class UserService {
 
   async login(email, password) {
     const user = await User.findOne({ email })
-    const isCorrectPass = User.matchPassword(password)
+    const isCorrectPass = await user.matchPassword(password)
     if (!user || !isCorrectPass) {
       throw ApiError.BadRequest('Invalid email or password')
     }

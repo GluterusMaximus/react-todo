@@ -8,7 +8,9 @@ class UserController {
     try {
       const errors = validationResult(req)
       if (!errors.isEmpty()) {
-        return next(ApiError.BadRequest('Validation error', errors.array()))
+        return next(
+          ApiError.BadRequest('Invalid registration data', errors.array())
+        )
       }
 
       const { email, password } = req.body
@@ -26,6 +28,11 @@ class UserController {
 
   async login(req, res, next) {
     try {
+      const errors = validationResult(req)
+      if (!errors.isEmpty()) {
+        return next(ApiError.BadRequest('Invalid login data', errors.array()))
+      }
+
       const { email, password } = req.body
       const userData = await userService.login(email, password)
       res.cookie('refreshToken', userData.refreshToken, {
@@ -34,7 +41,9 @@ class UserController {
         httpOnly: true,
       })
       res.json(userData)
-    } catch (error) {}
+    } catch (error) {
+      next(error)
+    }
   }
 
   async logout(req, res, next) {
