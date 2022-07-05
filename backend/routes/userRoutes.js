@@ -1,10 +1,11 @@
 import express from 'express'
 import userController from '../controllers/userController.js'
 import { body } from 'express-validator'
+import authMiddleware from '../middleware/authMiddleware.js'
 
 const router = express.Router()
 
-router.get('/', userController.getUsers)
+router.get('/', authMiddleware, userController.getUsers)
 router.post(
   '/register',
   body('email').isEmail(),
