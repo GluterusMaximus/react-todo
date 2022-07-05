@@ -27,6 +27,26 @@ class TokenService {
   async removeToken(refreshToken) {
     return await Token.deleteOne({ refreshToken })
   }
+
+  async findToken(refreshToken) {
+    return await Token.findOne({ refreshToken })
+  }
+
+  validateAccessToken(accessToken) {
+    try {
+      return jwt.verify(accessToken, process.env.JWT_ACCESS_SECRET)
+    } catch (error) {
+      return null
+    }
+  }
+
+  validateRefreshToken(refreshToken) {
+    try {
+      return jwt.verify(refreshToken, process.env.JWT_REFRESH_SECRET)
+    } catch (error) {
+      return null
+    }
+  }
 }
 
 export default new TokenService()
