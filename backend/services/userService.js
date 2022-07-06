@@ -1,4 +1,3 @@
-/* eslint-disable */
 import User from '../models/userModel.js'
 import { v4 } from 'uuid'
 import mailService from './mailService.js'
@@ -38,7 +37,7 @@ class UserService {
 
   async login(email, password) {
     const user = await User.findOne({ email })
-    const isCorrectPass = await user.matchPassword(password)
+    const isCorrectPass = await user?.matchPassword(password)
     if (!user || !isCorrectPass) {
       throw ApiError.BadRequest('Invalid email or password')
     }
@@ -50,8 +49,7 @@ class UserService {
   }
 
   async logout(refreshToken) {
-    const token = await tokenService.removeToken(refreshToken)
-    return token
+    return await tokenService.removeToken(refreshToken)
   }
 
   async refresh(refreshToken) {
@@ -66,6 +64,10 @@ class UserService {
     }
 
     const user = await User.findById(userData.id)
+    if (!user) {
+      throw ApiError.UnauthorizedError()
+    }
+
     const userDto = new UserDto(user)
     const tokens = tokenService.generateTokens({ ...userDto })
     await tokenService.saveToken(userDto.id, tokens.refreshToken)

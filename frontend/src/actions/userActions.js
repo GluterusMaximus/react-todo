@@ -1,3 +1,4 @@
+import axios from 'axios'
 import {
   USER_LOGIN_FAIL,
   USER_LOGIN_REQUEST,
@@ -7,6 +8,7 @@ import {
   USER_REGISTER_REQUEST,
   USER_REGISTER_SUCCESS,
 } from '../constants/userConstants'
+import { API_URL } from '../http'
 import AuthService from '../services/authService'
 
 export class userActions {
@@ -49,6 +51,24 @@ export class userActions {
       await AuthService.logout()
     } catch (error) {
       console.log(error)
+    }
+  }
+
+  static checkAuth = () => async dispatch => {
+    try {
+      dispatch({ type: USER_LOGIN_REQUEST })
+      const response = await axios.get(`${API_URL}/users/refresh`, {
+        withCredentials: true,
+      })
+      console.log(response)
+      localStorage.setItem('token', response.data.accessToken)
+
+      dispatch({ type: USER_LOGIN_SUCCESS, payload: response.data.user })
+    } catch (error) {
+      dispatch({
+        type: USER_LOGIN_FAIL,
+        payload: error.response?.data?.message || error.message,
+      })
     }
   }
 }
