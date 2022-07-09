@@ -1,12 +1,9 @@
 import axios from 'axios'
 import {
-  USER_LOGIN_FAIL,
-  USER_LOGIN_REQUEST,
-  USER_LOGIN_SUCCESS,
+  USER_AUTH_FAIL,
+  USER_AUTH_REQUEST,
+  USER_AUTH_SUCCESS,
   USER_LOGOUT,
-  USER_REGISTER_FAIL,
-  USER_REGISTER_REQUEST,
-  USER_REGISTER_SUCCESS,
 } from '../constants/userConstants'
 import { API_URL } from '../http'
 import AuthService from '../services/authService'
@@ -14,15 +11,15 @@ import AuthService from '../services/authService'
 export class userActions {
   static login = (email, password) => async dispatch => {
     try {
-      dispatch({ type: USER_LOGIN_REQUEST })
+      dispatch({ type: USER_AUTH_REQUEST })
 
       const response = await AuthService.login(email, password)
       localStorage.setItem('token', response.data.accessToken)
 
-      dispatch({ type: USER_LOGIN_SUCCESS, payload: response.data.user })
+      dispatch({ type: USER_AUTH_SUCCESS, payload: response.data.user })
     } catch (error) {
       dispatch({
-        type: USER_LOGIN_FAIL,
+        type: USER_AUTH_FAIL,
         payload: error.response?.data?.message || error.message,
       })
     }
@@ -30,15 +27,15 @@ export class userActions {
 
   static register = (email, password) => async dispatch => {
     try {
-      dispatch({ type: USER_REGISTER_REQUEST })
+      dispatch({ type: USER_AUTH_REQUEST })
 
       const response = await AuthService.register(email, password)
       localStorage.setItem('token', response.data.accessToken)
 
-      dispatch({ type: USER_REGISTER_SUCCESS, payload: response.data.user })
+      dispatch({ type: USER_AUTH_SUCCESS, payload: response.data.user })
     } catch (error) {
       dispatch({
-        type: USER_REGISTER_FAIL,
+        type: USER_AUTH_FAIL,
         payload: error.response?.data?.message || error.message,
       })
     }
@@ -56,17 +53,17 @@ export class userActions {
 
   static checkAuth = () => async dispatch => {
     try {
-      dispatch({ type: USER_LOGIN_REQUEST })
+      dispatch({ type: USER_AUTH_REQUEST })
       const response = await axios.get(`${API_URL}/users/refresh`, {
         withCredentials: true,
       })
       console.log(response)
       localStorage.setItem('token', response.data.accessToken)
 
-      dispatch({ type: USER_LOGIN_SUCCESS, payload: response.data.user })
+      dispatch({ type: USER_AUTH_SUCCESS, payload: response.data.user })
     } catch (error) {
       dispatch({
-        type: USER_LOGIN_FAIL,
+        type: USER_AUTH_FAIL,
         payload: error.response?.data?.message || error.message,
       })
     }
