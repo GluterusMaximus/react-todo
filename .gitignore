@@ -1,0 +1,25 @@
+# npm
+node_modules
+node_modules/
+*.log
+*.gz
+
+# Testing
+/coverage
+
+# Optional npm cache directory
+.npm
+
+# Optional eslint cache
+.eslintcache
+
+# dotenv environment variables file
+.env
+.env.test
+
+# VS code settings
+.vscode
+.vscode/
+
+# Build folder
+frontend/build/
